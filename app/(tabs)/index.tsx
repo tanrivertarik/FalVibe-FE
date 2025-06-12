@@ -123,49 +123,63 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Blurred Background Elements - Matching Next.js Design */}
-      <BlurView intensity={120} style={[styles.backgroundElement, styles.backgroundElement1]}>
+            {/* Blurred Background Elements - Simulating CSS blur() with layered gradients */}
+      
+      {/* Blue Circle Group */}
+      <View style={[styles.backgroundElement, styles.backgroundElement1, styles.blurLayer]}>
         <LinearGradient
-          colors={['rgba(30, 107, 200, 0.4)', 'rgba(30, 107, 200, 0.2)']}
+          colors={['rgba(30, 107, 200, 0.15)', 'rgba(30, 107, 200, 0.05)', 'transparent']}
           style={styles.gradientFill}
         />
-      </BlurView>
-      
-      <BlurView intensity={100} style={[styles.backgroundElement, styles.backgroundElement2]}>
+      </View>
+      <View style={[styles.backgroundElement, styles.backgroundElement1, styles.blurLayer2]}>
         <LinearGradient
-          colors={['rgba(255, 69, 0, 0.4)', 'rgba(255, 69, 0, 0.2)']}
+          colors={['rgba(30, 107, 200, 0.08)', 'transparent']}
           style={styles.gradientFill}
         />
-      </BlurView>
+      </View>
       
-      <BlurView intensity={80} style={[styles.backgroundElement, styles.backgroundElement3]}>
+      {/* Orange Circle Group */}
+      <View style={[styles.backgroundElement, styles.backgroundElement2, styles.blurLayer]}>
         <LinearGradient
-          colors={['rgba(255, 215, 0, 0.4)', 'rgba(255, 215, 0, 0.2)']}
+          colors={['rgba(255, 69, 0, 0.15)', 'rgba(255, 69, 0, 0.05)', 'transparent']}
           style={styles.gradientFill}
         />
-      </BlurView>
+      </View>
+      <View style={[styles.backgroundElement, styles.backgroundElement2, styles.blurLayer2]}>
+        <LinearGradient
+          colors={['rgba(255, 69, 0, 0.08)', 'transparent']}
+          style={styles.gradientFill}
+        />
+      </View>
       
-             <BlurView intensity={90} style={[styles.backgroundElement, styles.backgroundElement4]}>
-         <LinearGradient
-           colors={['rgba(231, 76, 60, 0.3)', 'rgba(231, 76, 60, 0.1)']}
-           style={styles.gradientFill}
-         />
-       </BlurView>
-       
-       {/* Additional floating elements for enhanced depth */}
-       <BlurView intensity={60} style={[styles.backgroundElement, styles.floatingElement1]}>
-         <LinearGradient
-           colors={['rgba(156, 39, 176, 0.2)', 'rgba(156, 39, 176, 0.1)']}
-           style={styles.gradientFill}
-         />
-       </BlurView>
-       
-       <BlurView intensity={70} style={[styles.backgroundElement, styles.floatingElement2]}>
-         <LinearGradient
-           colors={['rgba(76, 175, 80, 0.2)', 'rgba(76, 175, 80, 0.1)']}
-           style={styles.gradientFill}
-         />
-       </BlurView>
+      {/* Gold Circle Group */}
+      <View style={[styles.backgroundElement, styles.backgroundElement3, styles.blurLayer]}>
+        <LinearGradient
+          colors={['rgba(255, 215, 0, 0.15)', 'rgba(255, 215, 0, 0.05)', 'transparent']}
+          style={styles.gradientFill}
+        />
+      </View>
+      <View style={[styles.backgroundElement, styles.backgroundElement3, styles.blurLayer2]}>
+        <LinearGradient
+          colors={['rgba(255, 215, 0, 0.08)', 'transparent']}
+          style={styles.gradientFill}
+        />
+      </View>
+      
+      {/* Red Circle Group */}
+      <View style={[styles.backgroundElement, styles.backgroundElement4, styles.blurLayer]}>
+        <LinearGradient
+          colors={['rgba(231, 76, 60, 0.12)', 'rgba(231, 76, 60, 0.04)', 'transparent']}
+          style={styles.gradientFill}
+        />
+      </View>
+      <View style={[styles.backgroundElement, styles.backgroundElement4, styles.blurLayer2]}>
+        <LinearGradient
+          colors={['rgba(231, 76, 60, 0.06)', 'transparent']}
+          style={styles.gradientFill}
+        />
+      </View>
 
       <SafeAreaView style={styles.safeArea}>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
@@ -301,6 +315,15 @@ const styles = StyleSheet.create({
     right: '70%',
     width: '20%',
     height: '15%',
+  },
+  // Blur layer styles for creating depth effect
+  blurLayer: {
+    // Base layer for blur effect
+  },
+  blurLayer2: {
+    // Outer layer for extended blur
+    transform: [{ scale: 1.5 }],
+    opacity: 0.6,
   },
   safeArea: {
     flex: 1,
