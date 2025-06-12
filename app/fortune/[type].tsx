@@ -12,6 +12,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import CoffeeReadingScreen from './coffee-reading';
+import DreamInterpretationScreen from './dream-interpretation';
 
 const fortuneTypes = {
   'kahve-fali': {
@@ -66,6 +67,11 @@ export default function FortuneScreen() {
   // Use comprehensive coffee reading component for coffee fortune
   if (type === 'kahve-fali') {
     return <CoffeeReadingScreen />;
+  }
+  
+  // Use comprehensive dream interpretation component for dream interpretation
+  if (type === 'ruya-yorumu') {
+    return <DreamInterpretationScreen />;
   }
   
   if (!fortuneData) {
