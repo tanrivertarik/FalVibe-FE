@@ -33,6 +33,13 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Bu uygulama kahve falı için fotoğraflara erişim izni gerektirir.",
+          "cameraPermission": "Bu uygulama kahve falı için kameraya erişim izni gerektirir."
+        }
       ]
     ],
     "experiments": {

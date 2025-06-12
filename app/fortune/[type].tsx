@@ -11,6 +11,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import CoffeeReadingScreen from './coffee-reading';
 
 const fortuneTypes = {
   'kahve-fali': {
@@ -61,6 +62,11 @@ export default function FortuneScreen() {
   const [isReading, setIsReading] = useState(false);
   
   const fortuneData = fortuneTypes[type as keyof typeof fortuneTypes];
+  
+  // Use comprehensive coffee reading component for coffee fortune
+  if (type === 'kahve-fali') {
+    return <CoffeeReadingScreen />;
+  }
   
   if (!fortuneData) {
     return (
