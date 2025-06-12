@@ -123,11 +123,49 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Background Elements */}
-      <View style={[styles.backgroundElement, styles.backgroundElement1]} />
-      <View style={[styles.backgroundElement, styles.backgroundElement2]} />
-      <View style={[styles.backgroundElement, styles.backgroundElement3]} />
-      <View style={[styles.backgroundElement, styles.backgroundElement4]} />
+      {/* Blurred Background Elements - Matching Next.js Design */}
+      <BlurView intensity={120} style={[styles.backgroundElement, styles.backgroundElement1]}>
+        <LinearGradient
+          colors={['rgba(30, 107, 200, 0.4)', 'rgba(30, 107, 200, 0.2)']}
+          style={styles.gradientFill}
+        />
+      </BlurView>
+      
+      <BlurView intensity={100} style={[styles.backgroundElement, styles.backgroundElement2]}>
+        <LinearGradient
+          colors={['rgba(255, 69, 0, 0.4)', 'rgba(255, 69, 0, 0.2)']}
+          style={styles.gradientFill}
+        />
+      </BlurView>
+      
+      <BlurView intensity={80} style={[styles.backgroundElement, styles.backgroundElement3]}>
+        <LinearGradient
+          colors={['rgba(255, 215, 0, 0.4)', 'rgba(255, 215, 0, 0.2)']}
+          style={styles.gradientFill}
+        />
+      </BlurView>
+      
+             <BlurView intensity={90} style={[styles.backgroundElement, styles.backgroundElement4]}>
+         <LinearGradient
+           colors={['rgba(231, 76, 60, 0.3)', 'rgba(231, 76, 60, 0.1)']}
+           style={styles.gradientFill}
+         />
+       </BlurView>
+       
+       {/* Additional floating elements for enhanced depth */}
+       <BlurView intensity={60} style={[styles.backgroundElement, styles.floatingElement1]}>
+         <LinearGradient
+           colors={['rgba(156, 39, 176, 0.2)', 'rgba(156, 39, 176, 0.1)']}
+           style={styles.gradientFill}
+         />
+       </BlurView>
+       
+       <BlurView intensity={70} style={[styles.backgroundElement, styles.floatingElement2]}>
+         <LinearGradient
+           colors={['rgba(76, 175, 80, 0.2)', 'rgba(76, 175, 80, 0.1)']}
+           style={styles.gradientFill}
+         />
+       </BlurView>
 
       <SafeAreaView style={styles.safeArea}>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
@@ -221,34 +259,48 @@ const styles = StyleSheet.create({
   backgroundElement: {
     position: 'absolute',
     borderRadius: 9999,
+    overflow: 'hidden',
+  },
+  gradientFill: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
   },
   backgroundElement1: {
     top: '-20%',
     left: '-10%',
     width: '50%',
     height: '40%',
-    backgroundColor: 'rgba(30, 107, 200, 0.3)',
   },
   backgroundElement2: {
     bottom: '-10%',
     right: '-5%',
     width: '40%',
     height: '30%',
-    backgroundColor: 'rgba(255, 69, 0, 0.3)',
   },
   backgroundElement3: {
     top: '40%',
     right: '10%',
     width: '30%',
     height: '25%',
-    backgroundColor: 'rgba(255, 215, 0, 0.3)',
   },
   backgroundElement4: {
     bottom: '30%',
     left: '5%',
     width: '35%',
     height: '25%',
-    backgroundColor: 'rgba(231, 76, 60, 0.2)',
+  },
+  floatingElement1: {
+    top: '15%',
+    left: '60%',
+    width: '25%',
+    height: '20%',
+  },
+  floatingElement2: {
+    bottom: '50%',
+    right: '70%',
+    width: '20%',
+    height: '15%',
   },
   safeArea: {
     flex: 1,
