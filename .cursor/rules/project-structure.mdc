@@ -1,0 +1,20 @@
+---
+title: Project Structure
+---
+
+# FalVibeExpoReact Project Structure
+
+This is an Expo React Native application using Expo Router for navigation and Tailwind CSS via NativeWind for styling.
+
+- Root layout and entry point: [app/_layout.tsx](mdc:app/_layout.tsx)
+- Main app index: [app/index.tsx](mdc:app/index.tsx)
+- Tabs navigation: [app/(tabs)/_layout.tsx](mdc:app/(tabs)/_layout.tsx)
+- Tab screens: [app/(tabs)/index.tsx](mdc:app/(tabs)/index.tsx), [app/(tabs)/explore.tsx](mdc:app/(tabs)/explore.tsx), [app/(tabs)/fallarim.tsx](mdc:app/(tabs)/fallarim.tsx), [app/(tabs)/premium.tsx](mdc:app/(tabs)/premium.tsx), [app/(tabs)/profile.tsx](mdc:app/(tabs)/profile.tsx)
+- Fortune features: [app/fortune/[type].tsx](mdc:app/fortune/[type].tsx), [app/fortune/coffee-reading.tsx](mdc:app/fortune/coffee-reading.tsx), [app/fortune/dream-interpretation.tsx](mdc:app/fortune/dream-interpretation.tsx)
+- Components directory: [components/](mdc:components/)
+- Constants (e.g., colors): [constants/Colors.ts](mdc:constants/Colors.ts)
+- Hooks (e.g., theming): [hooks/](mdc:hooks/)
+- Assets: [assets/](mdc:assets/)
+- Configuration files: [app.json](mdc:app.json), [package.json](mdc:package.json), [tsconfig.json](mdc:tsconfig.json), [tailwind.config.js](mdc:tailwind.config.js), [eslint.config.js](mdc:eslint.config.js)
+
+This rule helps in navigating the codebase by highlighting main directories and files.

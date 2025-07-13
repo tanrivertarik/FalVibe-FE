@@ -1,0 +1,14 @@
+---
+alwaysApply: true
+---
+# Theming Guide for FalVibeExpoReact
+
+The app supports light and dark themes using system color scheme.
+
+- Use [components/ThemedView.tsx](mdc:components/ThemedView.tsx) for themed views.
+- Use [components/ThemedText.tsx](mdc:components/ThemedText.tsx) for themed text.
+- Fetch themed colors with [hooks/useThemeColor.ts](mdc:hooks/useThemeColor.ts).
+- Detect color scheme with [hooks/useColorScheme.ts](mdc:hooks/useColorScheme.ts).
+- Color definitions: [constants/Colors.ts](mdc:constants/Colors.ts).
+
+Always apply theming to maintain consistent UI across modes.

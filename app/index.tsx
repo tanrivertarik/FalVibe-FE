@@ -1,21 +1,27 @@
-import React, { useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, Dimensions, Alert, StatusBar, ScrollView } from 'react-native';
+import * as AuthSession from 'expo-auth-session';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import Animated, { 
-  useSharedValue, 
-  useAnimatedStyle, 
-  withRepeat, 
-  withTiming, 
-  interpolate,
-  Easing 
-} from 'react-native-reanimated';
-import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
-import Constants from 'expo-constants';
-import { ThemedView } from '@/components/ThemedView';
-import { ThemedText } from '@/components/ThemedText';
-import { useThemeColor } from '@/hooks/useThemeColor';
+import React, { useEffect } from 'react';
+import {
+  Alert,
+  Dimensions,
+  Image,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
+import Animated, {
+  Easing,
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming
+} from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // Complete the auth session properly
@@ -29,9 +35,6 @@ export default function LandingScreen() {
   const scale = useSharedValue(0.8);
   const opacity = useSharedValue(0);
   
-  const backgroundColor = useThemeColor({}, 'background');
-  const textColor = useThemeColor({}, 'text');
-
   // Google OAuth Configuration
   const [request, response, promptAsync] = AuthSession.useAuthRequest({
     clientId: 'YOUR_GOOGLE_CLIENT_ID', // You'll need to replace this
@@ -114,68 +117,17 @@ export default function LandingScreen() {
     router.replace('/(tabs)');
   };
 
-  const isDevelopment = __DEV__ || Constants.expoConfig?.extra?.development;
+  const isDevelopment = __DEV__;
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#EDEADE' }}>
-      <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
-      
-      {/* Blurred Background Elements */}
-      {/* Blue Circle Group */}
-      <View style={[styles.backgroundElement, styles.backgroundElement1, styles.blurLayer]}>
-        <LinearGradient
-          colors={['rgba(30, 107, 200, 0.15)', 'rgba(30, 107, 200, 0.05)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-      <View style={[styles.backgroundElement, styles.backgroundElement1, styles.blurLayer2]}>
-        <LinearGradient
-          colors={['rgba(30, 107, 200, 0.08)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-      
-      {/* Orange Circle Group */}
-      <View style={[styles.backgroundElement, styles.backgroundElement2, styles.blurLayer]}>
-        <LinearGradient
-          colors={['rgba(255, 69, 0, 0.15)', 'rgba(255, 69, 0, 0.05)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-      <View style={[styles.backgroundElement, styles.backgroundElement2, styles.blurLayer2]}>
-        <LinearGradient
-          colors={['rgba(255, 69, 0, 0.08)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-      
-      {/* Gold Circle Group */}
-      <View style={[styles.backgroundElement, styles.backgroundElement3, styles.blurLayer]}>
-        <LinearGradient
-          colors={['rgba(255, 215, 0, 0.15)', 'rgba(255, 215, 0, 0.05)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-      <View style={[styles.backgroundElement, styles.backgroundElement3, styles.blurLayer2]}>
-        <LinearGradient
-          colors={['rgba(255, 215, 0, 0.08)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-      
-      {/* Purple Circle Group */}
-      <View style={[styles.backgroundElement, styles.backgroundElement4, styles.blurLayer]}>
-        <LinearGradient
-          colors={['rgba(156, 39, 176, 0.12)', 'rgba(156, 39, 176, 0.04)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-      <View style={[styles.backgroundElement, styles.backgroundElement4, styles.blurLayer2]}>
-        <LinearGradient
-          colors={['rgba(156, 39, 176, 0.06)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
+    <LinearGradient
+      colors={['#fdbb2dE6', '#b21f1fE6', '#1a2a6cE6']}
+      locations={[0.1, 0.55, 1]}
+      start={{ x: 0.1, y: 0 }}
+      end={{ x: 0.9, y: 1 }}
+      style={{ flex: 1 }}
+    >
+      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
       
       {/* Development Mode Indicator */}
       {isDevelopment && (
@@ -185,10 +137,12 @@ export default function LandingScreen() {
              top: insets.top + 8,
              left: 16,
              zIndex: 10,
-             backgroundColor: 'rgba(255, 165, 0, 0.9)',
+             backgroundColor: 'rgba(255, 255, 255, 0.2)',
              paddingHorizontal: 12,
              paddingVertical: 4,
              borderRadius: 12,
+             borderColor: 'rgba(255, 255, 255, 0.3)',
+             borderWidth: 1,
            }}
          >
            <Text style={{ color: 'white', fontSize: 12, fontWeight: '600' }}>DEV MODE</Text>
@@ -223,21 +177,21 @@ export default function LandingScreen() {
               source={require('@/assets/images/falvibe-logo-new.png')}
               style={{
                 width: width * 0.7,
-                height: 60,
+                height: 100,
                 marginBottom: 16,
               }}
               resizeMode="contain"
             />
-                         <Text 
+            <Text 
                style={{
-                 color: 'rgba(31, 41, 55, 0.85)',
+                 color: 'rgba(255, 255, 255, 0.85)',
                  fontSize: 18,
                  fontWeight: '300',
                  textAlign: 'center',
                  letterSpacing: 1,
                }}
              >
-               Discover Your Fortune
+               Geleceğini Keşfet
              </Text>
           </Animated.View>
 
@@ -250,21 +204,7 @@ export default function LandingScreen() {
               marginVertical: 20,
             }}
           >
-            {/* Glow effect behind mandala */}
-            <View 
-              style={{
-                position: 'absolute',
-                width: width * 0.6,
-                height: width * 0.6,
-                backgroundColor: 'rgba(255, 165, 0, 0.08)',
-                borderRadius: (width * 0.6) / 2,
-                shadowColor: '#FFA500',
-                shadowOffset: { width: 0, height: 0 },
-                shadowOpacity: 0.3,
-                shadowRadius: 25,
-                elevation: 10,
-              }}
-            />
+            {/* Glow effect behind mandala removed */}
             
             <Animated.View 
               style={[
@@ -299,7 +239,7 @@ export default function LandingScreen() {
             {/* Tagline */}
                          <Text 
                style={{
-                 color: 'rgba(55, 65, 81, 0.8)',
+                 color: 'rgba(255, 255, 255, 0.8)',
                  fontSize: 16,
                  textAlign: 'center',
                  marginBottom: 32,
@@ -307,145 +247,56 @@ export default function LandingScreen() {
                  paddingHorizontal: 16,
                }}
              >
-               Unlock the mysteries of your future with ancient wisdom and modern insights
+               CATCH PHRASE
              </Text>
 
             {/* Google Sign-In Button */}
-            <TouchableOpacity
+            <TouchableOpacity 
               onPress={handleGoogleSignIn}
-              disabled={!request}
-              style={{ width: '100%', maxWidth: 280 }}
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                paddingVertical: 16,
+                paddingHorizontal: 24,
+                borderRadius: 30,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.2,
+                shadowRadius: 8,
+                elevation: 5,
+                marginBottom: 16,
+              }}
             >
-              <LinearGradient
-                colors={['#4285F4', '#3367D6']}
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  paddingVertical: 16,
-                  paddingHorizontal: 24,
-                  borderRadius: 16,
-                  shadowColor: '#4285F4',
-                  shadowOffset: { width: 0, height: 4 },
-                  shadowOpacity: 0.3,
-                  shadowRadius: 8,
-                  elevation: 8,
-                }}
-              >
-                <Image
-                  source={{
-                    uri: 'https://developers.google.com/identity/images/g-logo.png'
-                  }}
-                  style={{ width: 24, height: 24, marginRight: 12 }}
-                  resizeMode="contain"
-                />
-                <Text style={{ color: 'white', fontSize: 18, fontWeight: '600' }}>
-                  Continue with Google
-                </Text>
-              </LinearGradient>
+              <Image 
+                source={{ uri: 'https://developers.google.com/identity/images/g-logo.png' }}
+                style={{ width: 24, height: 24, marginRight: 12 }}
+              />
+              <Text style={{ color: '#2C3E50', fontSize: 16, fontWeight: '600' }}>
+                Sign in with Google
+              </Text>
             </TouchableOpacity>
 
-            {/* Development Skip Button */}
-            {isDevelopment && (
-              <TouchableOpacity
-                onPress={handleSkipAuth}
-                style={{ 
-                  width: '100%', 
-                  maxWidth: 280, 
-                  marginTop: 16 
-                }}
-              >
-                                 <View 
-                   style={{
-                     borderWidth: 1,
-                     borderColor: 'rgba(107, 114, 128, 0.3)',
-                     paddingVertical: 12,
-                     paddingHorizontal: 24,
-                     borderRadius: 16,
-                     backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                   }}
-                 >
-                                     <Text 
-                     style={{
-                       color: 'rgba(55, 65, 81, 0.8)',
-                       fontSize: 16,
-                       fontWeight: '500',
-                       textAlign: 'center',
-                     }}
-                   >
-                     Skip Auth (Dev Only)
-                   </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-
-            {/* Terms */}
-                         <Text 
-               style={{
-                 color: 'rgba(107, 114, 128, 0.7)',
-                 fontSize: 12,
-                 textAlign: 'center',
-                 marginTop: 24,
-                 paddingHorizontal: 16,
-                 lineHeight: 16,
-               }}
-             >
-               By continuing, you agree to our Terms of Service and Privacy Policy
-             </Text>
+            {/* Skip Button */}
+            <TouchableOpacity onPress={handleSkipAuth}>
+                           <Text 
+                 style={{
+                   color: 'rgba(255, 255, 255, 0.7)',
+                   fontSize: 14,
+                   fontWeight: '500',
+                   padding: 8,
+                 }}
+               >
+                 Giriş Yapmadan Devam Et (DEV MODE)
+               </Text>
+            </TouchableOpacity>
           </Animated.View>
         </View>
       </ScrollView>
-
-      {/* Decorative floating particles */}
-      <View style={{ position: 'absolute', top: insets.top + 80, left: 16, width: 8, height: 8, backgroundColor: 'rgba(255, 165, 0, 0.3)', borderRadius: 4 }} />
-      <View style={{ position: 'absolute', top: insets.top + 120, right: 32, width: 4, height: 4, backgroundColor: 'rgba(100, 150, 255, 0.4)', borderRadius: 2 }} />
-      <View style={{ position: 'absolute', bottom: insets.bottom + 120, left: 48, width: 6, height: 6, backgroundColor: 'rgba(255, 100, 100, 0.3)', borderRadius: 3 }} />
-      <View style={{ position: 'absolute', bottom: insets.bottom + 80, right: 16, width: 4, height: 4, backgroundColor: 'rgba(255, 200, 100, 0.4)', borderRadius: 2 }} />
-    </View>
+    </LinearGradient>
   );
 }
 
-const styles = {
-  backgroundElement: {
-    position: 'absolute' as const,
-    borderRadius: 9999,
-    overflow: 'hidden' as const,
-  },
-  gradientFill: {
-    flex: 1,
-    width: '100%' as const,
-    height: '100%' as const,
-  },
-  backgroundElement1: {
-    top: '-20%' as const,
-    left: '-10%' as const,
-    width: '50%' as const,
-    height: '40%' as const,
-  },
-  backgroundElement2: {
-    bottom: '-10%' as const,
-    right: '-5%' as const,
-    width: '40%' as const,
-    height: '30%' as const,
-  },
-  backgroundElement3: {
-    top: '40%' as const,
-    right: '10%' as const,
-    width: '30%' as const,
-    height: '25%' as const,
-  },
-  backgroundElement4: {
-    bottom: '30%' as const,
-    left: '5%' as const,
-    width: '35%' as const,
-    height: '25%' as const,
-  },
-  blurLayer: {
-    // Base layer for blur effect
-  },
-  blurLayer2: {
-    // Outer layer for extended blur
-    transform: [{ scale: 1.5 }] as const,
-    opacity: 0.6,
-  },
-}; 
+const styles = StyleSheet.create({}); 
