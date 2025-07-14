@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  SafeAreaView,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import CoffeeReadingScreen from './coffee-reading';
 import DreamInterpretationScreen from './dream-interpretation';
 
@@ -66,7 +66,12 @@ export default function FortuneScreen() {
   
   // Use comprehensive coffee reading component for coffee fortune
   if (type === 'kahve-fali') {
-    return <CoffeeReadingScreen />;
+    return (
+      <>
+        <Stack.Screen options={{ headerShown: false }} />
+        <CoffeeReadingScreen />
+      </>
+    );
   }
   
   // Use comprehensive dream interpretation component for dream interpretation

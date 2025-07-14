@@ -2,27 +2,28 @@ import * as AuthSession from 'expo-auth-session';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Alert,
-  Dimensions,
-  Image,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
+    Alert,
+    Dimensions,
+    Image,
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import Animated, {
-  Easing,
-  interpolate,
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withTiming
+    Easing,
+    interpolate,
+    useAnimatedStyle,
+    useSharedValue,
+    withRepeat,
+    withTiming
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import LoadingScreen from './loading';
 
 // Complete the auth session properly
 WebBrowser.maybeCompleteAuthSession();
@@ -34,6 +35,7 @@ export default function LandingScreen() {
   const rotation = useSharedValue(0);
   const scale = useSharedValue(0.8);
   const opacity = useSharedValue(0);
+  const [isLoading, setIsLoading] = useState(false);
   
   // Google OAuth Configuration
   const [request, response, promptAsync] = AuthSession.useAuthRequest({
@@ -51,9 +53,12 @@ export default function LandingScreen() {
     if (response?.type === 'success') {
       const { authentication } = response;
       console.log('Authentication successful:', authentication);
-      router.replace('/(tabs)');
+      setIsLoading(true);
+      // Simulate a delay for a smoother transition
+      setTimeout(() => router.replace('/(tabs)'), 1500);
     } else if (response?.type === 'error') {
       Alert.alert('Authentication Error', 'Failed to authenticate with Google');
+      setIsLoading(false);
     }
   }, [response]);
 
@@ -114,7 +119,9 @@ export default function LandingScreen() {
   };
 
   const handleSkipAuth = () => {
-    router.replace('/(tabs)');
+    setIsLoading(true);
+    // Simulate a delay for a smoother transition
+    setTimeout(() => router.replace('/(tabs)'), 1500);
   };
 
   const isDevelopment = __DEV__;
@@ -295,6 +302,7 @@ export default function LandingScreen() {
           </Animated.View>
         </View>
       </ScrollView>
+      {isLoading && <LoadingScreen />}
     </LinearGradient>
   );
 }

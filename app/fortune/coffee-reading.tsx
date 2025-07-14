@@ -1,21 +1,23 @@
-import React, { useState, useRef } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  SafeAreaView,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  Modal,
-  Alert,
-  Dimensions,
-} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
-import * as ImagePicker from 'expo-image-picker';
+import React, { useState } from 'react';
+import {
+  Alert,
+  Dimensions,
+  Image,
+  Modal,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import LoadingScreen from '../loading';
 
 const { width } = Dimensions.get('window');
 
@@ -176,7 +178,7 @@ export default function CoffeeReadingScreen() {
   const handleVisualizeResponse = (response: boolean) => {
     setShowVisualizeModal(false);
     // Navigate to results page
-    router.push('/(tabs)/fortunes');
+    router.push('/(tabs)/fallarim');
   };
 
   const renderHeader = () => (
@@ -483,16 +485,21 @@ export default function CoffeeReadingScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
-        colors={['#F5F5F0', '#FAFAFA']}
-        style={styles.gradient}
+        colors={['#E6F7FF', '#FFFFFF']}
+        style={StyleSheet.absoluteFill}
+      />
+      <StatusBar barStyle="dark-content" backgroundColor="#E6F7FF" />
+      {renderHeader()}
+      <ScrollView
+        style={styles.contentContainer}
+        showsVerticalScrollIndicator={false}
       >
-        {renderHeader()}
-        <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-          {step === 1 && renderFortuneTellerSelection()}
-          {step === 2 && renderImageUpload()}
-        </ScrollView>
-        {renderVisualizeModal()}
-      </LinearGradient>
+        {step === 1 && renderFortuneTellerSelection()}
+        {step === 2 && renderImageUpload()}
+      </ScrollView>
+
+      {renderVisualizeModal()}
+      {isInterpreting && <LoadingScreen />}
     </SafeAreaView>
   );
 }
@@ -1013,5 +1020,16 @@ const styles = StyleSheet.create({
   },
   modalButtonTextSecondary: {
     color: '#374151',
+  },
+  contentContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingBottom: 40,
+  },
+  noResultsText: {
+    fontSize: 16,
+    color: '#6B7280',
+    textAlign: 'center',
+    marginTop: 20,
   },
 }); 

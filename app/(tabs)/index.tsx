@@ -2,25 +2,26 @@ import { Ionicons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import {
-    Dimensions,
-    FlatList,
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Dimensions,
+  FlatList,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
+import LoadingScreen from '../loading';
 
 const { width } = Dimensions.get('window');
 
 interface FortuneCard {
   id: string;
   title: string;
-  image: string;
+  image: any;
   rating: number;
   reviews: number;
   tag: string;
@@ -37,12 +38,13 @@ interface ServiceOption {
 
 export default function HomeScreen() {
   const router = useRouter();
+  const [isNavigating, setIsNavigating] = useState(false);
   
   const featuredCards: FortuneCard[] = [
     {
       id: '1',
       title: 'Kahve Falı',
-      image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=400&fit=crop',
+      image: require('../../assets/images/coffe.png'),
       rating: 4.9,
       reviews: 143,
       tag: 'Popüler',
@@ -52,7 +54,7 @@ export default function HomeScreen() {
     {
       id: '2',
       title: 'Rüya Yorumu',
-      image: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=600&h=400&fit=crop',
+      image: require('../../assets/images/dream.png'),
       rating: 4.7,
       reviews: 98,
       tag: 'Yeni',
@@ -61,13 +63,13 @@ export default function HomeScreen() {
     },
     {
       id: '3',
-      title: 'El Falı',
-      image: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=600&h=400&fit=crop',
-      rating: 4.5,
-      reviews: 76,
+      title: 'Tarot Falı',
+      image: require('../../assets/images/tarot.png'),
+      rating: 4.8,
+      reviews: 112,
       tag: 'Özel',
-      tagColor: '#E74C3C',
-      route: 'el-fali',
+      tagColor: '#9C27B0',
+      route: 'tarot-fali',
     },
   ];
 
@@ -80,13 +82,26 @@ export default function HomeScreen() {
     { icon: 'person', title: 'Yüz Falı', color: '#4CAF50', route: 'yuz-fali' },
   ];
 
+  const handleNavigation = (route: any) => {
+    if (route.endsWith('kahve-fali')) {
+      setIsNavigating(true);
+      setTimeout(() => {
+        router.push(route);
+        // Reset state after a delay, in case user navigates back
+        setTimeout(() => setIsNavigating(false), 500);
+      }, 2000);
+    } else {
+      router.push(route);
+    }
+  };
+
   const renderFeatureCard = ({ item }: { item: FortuneCard }) => (
     <TouchableOpacity 
       style={styles.featureCard}
-      onPress={() => router.push(`/fortune/${item.route}`)}
+      onPress={() => handleNavigation(`/fortune/${item.route}`)}
     >
       <View style={styles.cardImageContainer}>
-        <Image source={{ uri: item.image }} style={styles.cardImage} />
+        <Image source={item.image} style={styles.cardImage} />
         <LinearGradient
           colors={['transparent', 'rgba(0,0,0,0.7)']}
           style={styles.cardGradient}
@@ -112,7 +127,7 @@ export default function HomeScreen() {
     <TouchableOpacity 
       key={index} 
       style={styles.serviceOption}
-      onPress={() => router.push(`/fortune/${item.route}`)}
+      onPress={() => handleNavigation(`/fortune/${item.route}`)}
     >
       <View style={[styles.serviceIcon, { backgroundColor: `${item.color}10` }]}>
         <Ionicons name={item.icon} size={20} color={item.color} />
@@ -123,64 +138,10 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-            {/* Blurred Background Elements - Simulating CSS blur() with layered gradients */}
-      
-      {/* Blue Circle Group */}
-      <View style={[styles.backgroundElement, styles.backgroundElement1, styles.blurLayer]}>
-        <LinearGradient
-          colors={['rgba(30, 107, 200, 0.15)', 'rgba(30, 107, 200, 0.05)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-      <View style={[styles.backgroundElement, styles.backgroundElement1, styles.blurLayer2]}>
-        <LinearGradient
-          colors={['rgba(30, 107, 200, 0.08)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-      
-      {/* Orange Circle Group */}
-      <View style={[styles.backgroundElement, styles.backgroundElement2, styles.blurLayer]}>
-        <LinearGradient
-          colors={['rgba(255, 69, 0, 0.15)', 'rgba(255, 69, 0, 0.05)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-      <View style={[styles.backgroundElement, styles.backgroundElement2, styles.blurLayer2]}>
-        <LinearGradient
-          colors={['rgba(255, 69, 0, 0.08)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-      
-      {/* Gold Circle Group */}
-      <View style={[styles.backgroundElement, styles.backgroundElement3, styles.blurLayer]}>
-        <LinearGradient
-          colors={['rgba(255, 215, 0, 0.15)', 'rgba(255, 215, 0, 0.05)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-      <View style={[styles.backgroundElement, styles.backgroundElement3, styles.blurLayer2]}>
-        <LinearGradient
-          colors={['rgba(255, 215, 0, 0.08)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-      
-      {/* Red Circle Group */}
-      <View style={[styles.backgroundElement, styles.backgroundElement4, styles.blurLayer]}>
-        <LinearGradient
-          colors={['rgba(231, 76, 60, 0.12)', 'rgba(231, 76, 60, 0.04)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-      <View style={[styles.backgroundElement, styles.backgroundElement4, styles.blurLayer2]}>
-        <LinearGradient
-          colors={['rgba(231, 76, 60, 0.06)', 'transparent']}
-          style={styles.gradientFill}
-        />
-      </View>
-
+      <LinearGradient
+        colors={['#E6F7FF', '#FFFFFF']}
+        style={StyleSheet.absoluteFill}
+      />
       <SafeAreaView style={styles.safeArea}>
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
           {/* Header */}
@@ -261,6 +222,7 @@ export default function HomeScreen() {
           <View style={styles.bottomPadding} />
         </ScrollView>
       </SafeAreaView>
+      {isNavigating && <LoadingScreen />}
     </View>
   );
 }
@@ -268,62 +230,8 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F0',
-  },
-  backgroundElement: {
-    position: 'absolute',
-    borderRadius: 9999,
-    overflow: 'hidden',
-  },
-  gradientFill: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-  },
-  backgroundElement1: {
-    top: '-20%',
-    left: '-10%',
-    width: '50%',
-    height: '40%',
-  },
-  backgroundElement2: {
-    bottom: '-10%',
-    right: '-5%',
-    width: '40%',
-    height: '30%',
-  },
-  backgroundElement3: {
-    top: '40%',
-    right: '10%',
-    width: '30%',
-    height: '25%',
-  },
-  backgroundElement4: {
-    bottom: '30%',
-    left: '5%',
-    width: '35%',
-    height: '25%',
-  },
-  floatingElement1: {
-    top: '15%',
-    left: '60%',
-    width: '25%',
-    height: '20%',
-  },
-  floatingElement2: {
-    bottom: '50%',
-    right: '70%',
-    width: '20%',
-    height: '15%',
-  },
-  // Blur layer styles for creating depth effect
-  blurLayer: {
-    // Base layer for blur effect
-  },
-  blurLayer2: {
-    // Outer layer for extended blur
-    transform: [{ scale: 1.5 }],
-    opacity: 0.6,
+    // Arka plan rengini LinearGradient yönetecek.
+    // backgroundColor: '#F5F5F0',
   },
   safeArea: {
     flex: 1,
@@ -402,6 +310,11 @@ const styles = StyleSheet.create({
   featureCard: {
     width: width * 0.75,
     marginRight: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    elevation: 5,
   },
   cardImageContainer: {
     width: '100%',
@@ -477,16 +390,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 12,
+    borderRadius: 16,
     padding: 12,
-    marginBottom: 12,
+    marginBottom: 16,
     borderWidth: 1,
     borderColor: 'rgba(255, 215, 0, 0.2)',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    elevation: 5,
   },
   serviceIcon: {
     width: 40,
