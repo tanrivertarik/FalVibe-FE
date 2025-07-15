@@ -73,13 +73,49 @@ export default function HomeScreen() {
     },
   ];
 
-  const serviceOptions: ServiceOption[] = [
-    { icon: 'cafe', title: 'Kahve Falı', color: '#FF4500', route: 'kahve-fali' },
-    { icon: 'library', title: 'Tarot Falı', color: '#1E6BC8', route: 'tarot-fali' },
-    { icon: 'hand-left', title: 'El Falı', color: '#E74C3C', route: 'el-fali' },
-    { icon: 'moon', title: 'Rüya Yorumu', color: '#9C27B0', route: 'ruya-yorumu' },
-    { icon: 'compass', title: 'Burç Yorumları', color: '#FFD700', route: 'burc' },
-    { icon: 'person', title: 'Yüz Falı', color: '#4CAF50', route: 'yuz-fali' },
+  const serviceOptions = [
+    { 
+      icon: 'cafe-outline', 
+      title: 'Kahve Falı', 
+      description: 'Geleneksel lezzetin sırlarını fincanınızda keşfedin.',
+      color: '#A162F7', 
+      route: 'kahve-fali' 
+    },
+    { 
+      icon: 'layers-outline', 
+      title: 'Tarot Falı', 
+      description: 'Kartların bilgeliğiyle geleceğinize ışık tutun.',
+      color: '#1E6BC8', 
+      route: 'tarot-fali' 
+    },
+    { 
+      icon: 'hand-left-outline', 
+      title: 'El Falı', 
+      description: 'Avucunuzdaki çizgilerin gizemli anlamlarını öğrenin.',
+      color: '#E74C3C', 
+      route: 'el-fali' 
+    },
+    { 
+      icon: 'moon-outline', 
+      title: 'Rüya Yorumu', 
+      description: 'Bilinçaltınızın size gönderdiği mesajları çözün.',
+      color: '#9C27B0', 
+      route: 'ruya-yorumu' 
+    },
+    { 
+      icon: 'compass-outline', 
+      title: 'Burç Yorumları', 
+      description: 'Yıldızların rehberliğinde gününüzü planlayın.',
+      color: '#FFD700', 
+      route: 'burc' 
+    },
+    { 
+      icon: 'person-outline', 
+      title: 'Yüz Falı', 
+      description: 'Yüzünüzdeki hatların karakteriniz hakkındaki sırları.',
+      color: '#4CAF50', 
+      route: 'yuz-fali' 
+    },
   ];
 
   const handleNavigation = (route: any) => {
@@ -123,16 +159,26 @@ export default function HomeScreen() {
     </TouchableOpacity>
   );
 
-  const renderServiceOption = (item: ServiceOption, index: number) => (
+  const renderServiceOption = (item: any, index: number) => (
     <TouchableOpacity 
       key={index} 
-      style={styles.serviceOption}
+      style={styles.serviceListItem}
       onPress={() => handleNavigation(`/fortune/${item.route}`)}
     >
-      <View style={[styles.serviceIcon, { backgroundColor: `${item.color}10` }]}>
-        <Ionicons name={item.icon} size={20} color={item.color} />
+      <LinearGradient
+        colors={['#1E6BC8', '#FFD700', '#FF4500']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.cardTopLine}
+      />
+      <View style={[styles.serviceIconContainer, { backgroundColor: `${item.color}20` }]}>
+        <Ionicons name={item.icon} size={24} color={item.color} />
       </View>
-      <Text style={styles.serviceTitle}>{item.title}</Text>
+      <View style={styles.serviceTextContainer}>
+        <Text style={styles.serviceTitle}>{item.title}</Text>
+        <Text style={styles.serviceDescription}>{item.description}</Text>
+      </View>
+      <Ionicons name="chevron-forward-outline" size={22} color="#C7C7CC" />
     </TouchableOpacity>
   );
 
@@ -193,9 +239,12 @@ export default function HomeScreen() {
             />
           </View>
 
-          {/* Service Options Grid */}
+          {/* Service Options List */}
           <View style={styles.servicesSection}>
-            <View style={styles.servicesGrid}>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionTitle}>Tüm Fallar</Text>
+            </View>
+            <View style={styles.serviceList}>
               {serviceOptions.map((item, index) => renderServiceOption(item, index))}
             </View>
           </View>
@@ -374,50 +423,55 @@ const styles = StyleSheet.create({
   },
   reviewsText: {
     fontSize: 12,
-    color: 'rgba(255, 255, 255, 0.7)',
+    color: '#E0E0E0',
+    marginLeft: 8,
   },
   servicesSection: {
     paddingHorizontal: 20,
-    marginBottom: 24,
+    marginTop: 24,
   },
-  servicesGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+  serviceList: {
+    flexDirection: 'column',
+    gap: 12,
   },
-  serviceOption: {
-    width: '48%',
+  serviceListItem: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 16,
-    padding: 12,
-    marginBottom: 16,
+    padding: 16,
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: 'rgba(255, 215, 0, 0.2)',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
-    elevation: 5,
+    borderColor: '#EFEFEF',
+    overflow: 'hidden',
   },
-  serviceIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
+  cardTopLine: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 3,
   },
-  serviceTitle: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#374151',
+  serviceIconContainer: {
+    padding: 12,
+    borderRadius: 10,
+    marginRight: 16,
+  },
+  serviceTextContainer: {
     flex: 1,
   },
+  serviceTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333333',
+    marginBottom: 2,
+  },
+  serviceDescription: {
+    fontSize: 13,
+    color: '#828282',
+  },
   bannerSection: {
+    marginTop: 32,
     paddingHorizontal: 20,
-    marginBottom: 24,
   },
   banner: {
     borderRadius: 16,

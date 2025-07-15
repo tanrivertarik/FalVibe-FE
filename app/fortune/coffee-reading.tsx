@@ -26,13 +26,13 @@ const fortuneTellers = [
   {
     id: 1,
     name: "Ayşe Hoca",
-    image: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=200&h=200&fit=crop&crop=face",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face",
     specialty: "Aşk & İlişkiler",
     experience: "15 yıl",
     rating: 4.9,
     reviews: 1243,
     price: 25,
-    description: "Aşk ve ilişkiler konusunda uzman, sezgileri güçlü, 15 yıllık tecrübeye sahip.",
+    description: "Kahve telvesindeki sembolleri romantik ve duygusal bir bakış açısıyla yorumlar, kalbinizin sesini duymanıza yardımcı olur.",
   },
   {
     id: 2,
@@ -43,7 +43,7 @@ const fortuneTellers = [
     rating: 4.8,
     reviews: 987,
     price: 30,
-    description: "İş ve kariyer fallarında uzmanlaşmış, geleceğe dair öngörüleri yüksek doğrulukta.",
+    description: "Fincandaki desenleri stratejik bir vizyonla analiz eder, kariyer basamaklarını tırmanmanız için somut adımlar sunar.",
   },
   {
     id: 3,
@@ -54,7 +54,7 @@ const fortuneTellers = [
     rating: 4.7,
     reviews: 756,
     price: 25,
-    description: "Hayatınızın her alanında size rehberlik edebilir, özellikle dönüm noktalarında.",
+    description: "Kahve telvesinin bütünsel bir haritasını çıkarır, geçmiş, şimdi ve gelecek arasında köprüler kurarak hayat yolculuğunuzda size ışık tutar.",
   },
   {
     id: 4,
@@ -65,7 +65,7 @@ const fortuneTellers = [
     rating: 4.9,
     reviews: 1102,
     price: 35,
-    description: "Sağlık ve iç huzur konularında uzman, şifalı bitkiler hakkında da bilgi verir.",
+    description: "Fincandaki şekilleri enerji akışınız ve çakralarınızla ilişkilendirir. Sadece geleceği değil, ruhsal ve bedensel dengeyi bulmanız için de rehberlik eder.",
   },
   {
     id: 5,
@@ -76,7 +76,7 @@ const fortuneTellers = [
     rating: 4.9,
     reviews: 1532,
     price: 40,
-    description: "Aile ilişkileri ve çocuklarla ilgili konularda uzman, anne-çocuk ilişkisi danışmanı.",
+    description: "Kahve telvesini bir aile ağacı gibi okur, nesiller arası bağları ve aile içi dinamikleri şefkatli bir yaklaşımla yorumlar.",
   },
 ];
 
@@ -195,7 +195,7 @@ export default function CoffeeReadingScreen() {
         </Text>
       </View>
       <Image
-        source={{ uri: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=120&h=48&fit=crop' }}
+        source={require('../../assets/images/falvibe-logo-new.png')}
         style={styles.logo}
       />
     </View>
@@ -272,7 +272,7 @@ export default function CoffeeReadingScreen() {
                   <Text style={styles.tellerName}>{teller.name}</Text>
                   <View style={styles.priceTag}>
                     <Ionicons name="sparkles" size={12} color="#FFD700" />
-                    <Text style={styles.priceText}>{teller.price}₺</Text>
+                    <Text style={styles.priceText}>{teller.price} Yıldız Tozu</Text>
                   </View>
                 </View>
                 
@@ -310,23 +310,6 @@ export default function CoffeeReadingScreen() {
     
     return (
       <View style={styles.stepContainer}>
-        {/* Selected Fortune Teller */}
-        {selectedTeller && (
-          <View style={styles.selectedTellerCard}>
-            <Image source={{ uri: selectedTeller.image }} style={styles.selectedTellerImage} />
-            <View style={styles.selectedTellerInfo}>
-              <Text style={styles.selectedTellerName}>{selectedTeller.name}</Text>
-              <View style={styles.selectedTellerMeta}>
-                <Text style={styles.selectedTellerSpecialty}>{selectedTeller.specialty}</Text>
-                <View style={styles.selectedTellerRating}>
-                  <Ionicons name="star" size={12} color="#FFD700" />
-                  <Text style={styles.selectedTellerRatingText}>{selectedTeller.rating}</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        )}
-
         {/* Instructions */}
         <View style={styles.instructionCard}>
           <View style={styles.instructionIcon}>
@@ -339,6 +322,39 @@ export default function CoffeeReadingScreen() {
             </Text>
           </View>
         </View>
+
+        {/* Selected Fortune Teller */}
+        {selectedTeller && (
+          <View style={styles.selectedTellerCard}>
+            <View style={styles.selectedTellerHeader}>
+              <Image source={{ uri: selectedTeller.image }} style={styles.selectedTellerImage} />
+              <View style={styles.selectedTellerInfo}>
+                <Text style={styles.selectedTellerName}>{selectedTeller.name}</Text>
+                <View style={styles.selectedTellerMeta}>
+                  <View style={styles.specialtyTag}>
+                    <Text style={styles.specialtyText}>{selectedTeller.specialty}</Text>
+                  </View>
+                  <View style={styles.rating}>
+                    <Ionicons name="star" size={14} color="#FFD700" />
+                    <Text style={styles.ratingText}>
+                      {selectedTeller.rating} ({selectedTeller.reviews} yorum)
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <Text style={styles.selectedTellerDescription}>
+              "{selectedTeller.description}"
+            </Text>
+            <View style={styles.selectedTellerFooter}>
+              <Text style={styles.experience}>{selectedTeller.experience} tecrübe</Text>
+              <View style={styles.priceTag}>
+                <Ionicons name="sparkles" size={12} color="#FFD700" />
+                <Text style={styles.priceText}>{selectedTeller.price} Yıldız Tozu</Text>
+              </View>
+            </View>
+          </View>
+        )}
 
         {/* Upload Section */}
         <View style={styles.uploadContainer}>
@@ -451,33 +467,66 @@ export default function CoffeeReadingScreen() {
     <Modal
       visible={showVisualizeModal}
       transparent
-      animationType="fade"
+      animationType="slide"
       onRequestClose={() => setShowVisualizeModal(false)}
     >
       <View style={styles.modalOverlay}>
-        <View style={styles.modalContent}>
-          <View style={styles.modalIcon}>
-            <Ionicons name="eye" size={32} color="#1E6BC8" />
+        <LinearGradient
+          colors={['#F9FAFB', '#FFFFFF']}
+          style={styles.modalContent}
+        >
+          <View style={styles.modalHeader}>
+            <View style={styles.modalHeaderIcon}>
+              <Ionicons name="eye-outline" size={24} color="white" />
+            </View>
+            <Text style={styles.modalTitle}>Falınızı Görselleştir</Text>
           </View>
-          <Text style={styles.modalTitle}>Falınız Hazır!</Text>
-          <Text style={styles.modalText}>
-            Kahve falınız başarıyla yorumlandı. Falınızı görsel olarak da görüntülemek ister misiniz?
+
+          <Text style={styles.modalDescription}>
+            Falınızı görselleştirmek ister misiniz? Yapay zeka ile oluşturulan görsel yorumlar falınızı daha iyi anlamanızı sağlar.
           </Text>
+
+          <View style={styles.imageContainer}>
+            <Image
+              source={require('../../assets/images/phoenix-dream.png')} // Placeholder
+              style={styles.modalImage}
+            />
+            <View style={styles.exampleTag}>
+              <Text style={styles.exampleTagText}>Örnek Görsel</Text>
+            </View>
+          </View>
+          
+          <View style={styles.costContainer}>
+            <Ionicons name="sparkles-outline" size={24} color="#D97706" />
+            <Text style={styles.costText}>Sadece 25 yıldız tozu</Text>
+            <View style={styles.costBox}>
+              <Text style={styles.costBoxText}>25</Text>
+              <Ionicons name="sparkles" size={16} color="#F59E0B" />
+            </View>
+          </View>
+
           <View style={styles.modalButtons}>
             <TouchableOpacity
-              onPress={() => handleVisualizeResponse(false)}
-              style={[styles.modalButton, styles.modalButtonSecondary]}
+              onPress={() => handleVisualizeResponse(true)}
+              style={{ flex: 1 }}
             >
-              <Text style={styles.modalButtonTextSecondary}>Sadece Metin</Text>
+              <LinearGradient
+                colors={['#8B5CF6', '#3B82F6']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.primaryButton}
+              >
+                <Text style={styles.primaryButtonText}>Evet</Text>
+              </LinearGradient>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => handleVisualizeResponse(true)}
-              style={styles.modalButton}
+              onPress={() => handleVisualizeResponse(false)}
+              style={styles.secondaryButton}
             >
-              <Text style={styles.modalButtonText}>Görsel ile Birlikte</Text>
+              <Text style={styles.secondaryButtonText}>Şimdilik hayır</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </LinearGradient>
       </View>
     </Modal>
   );
@@ -537,9 +586,9 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   logo: {
-    width: 120,
-    height: 44,
-    borderRadius: 8,
+    width: 138,
+    height: 48,
+    resizeMode: 'contain',
   },
   content: {
     flex: 1,
@@ -555,11 +604,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 6,
   },
   instructionIcon: {
     backgroundColor: 'rgba(255, 69, 0, 0.2)',
@@ -630,11 +681,13 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 16,
     marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 6,
     overflow: 'hidden',
   },
   cardGradient: {
@@ -645,31 +698,32 @@ const styles = StyleSheet.create({
     height: 4,
   },
   tellerContent: {
-    flexDirection: 'row',
+    flexDirection: 'column',
+    alignItems: 'center',
     marginBottom: 12,
   },
   tellerImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    marginRight: 16,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 12,
     borderWidth: 2,
     borderColor: 'rgba(255, 215, 0, 0.3)',
   },
   tellerInfo: {
     flex: 1,
+    alignItems: 'center',
   },
   tellerHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    flexDirection: 'column',
+    alignItems: 'center',
     marginBottom: 8,
   },
   tellerName: {
     fontSize: 18,
     fontWeight: '600',
     color: '#1F2937',
-    flex: 1,
+    marginBottom: 4,
   },
   priceTag: {
     backgroundColor: 'rgba(255, 215, 0, 0.1)',
@@ -720,36 +774,46 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#374151',
     lineHeight: 20,
+    textAlign: 'center',
   },
   selectButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255, 69, 0, 0.1)',
+    borderRadius: 12,
+    paddingVertical: 10,
+    marginTop: 12,
   },
   selectButtonText: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: '600',
     color: '#FF4500',
     marginRight: 4,
   },
   selectedTellerCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 12,
-    padding: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: 16,
+    padding: 20,
     marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 6,
+  },
+  selectedTellerHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    marginBottom: 12,
   },
   selectedTellerImage: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    marginRight: 12,
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    marginRight: 16,
     borderWidth: 2,
     borderColor: 'rgba(255, 215, 0, 0.3)',
   },
@@ -757,38 +821,46 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   selectedTellerName: {
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: 'bold',
     color: '#1F2937',
     marginBottom: 4,
   },
   selectedTellerMeta: {
     flexDirection: 'row',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 8,
   },
-  selectedTellerSpecialty: {
-    fontSize: 12,
-    color: '#FF4500',
-    marginRight: 8,
-  },
-  selectedTellerRating: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  selectedTellerRatingText: {
-    fontSize: 12,
+  selectedTellerDescription: {
+    fontSize: 14,
     color: '#4B5563',
-    marginLeft: 4,
+    fontStyle: 'italic',
+    textAlign: 'center',
+    lineHeight: 20,
+    marginBottom: 12,
+    paddingHorizontal: 8,
+  },
+  selectedTellerFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 12,
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderColor: '#E5E7EB',
   },
   uploadContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderRadius: 16,
     padding: 20,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 6,
   },
   uploadHeader: {
     flexDirection: 'row',
@@ -838,15 +910,17 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   uploadButtons: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     gap: 8,
+    alignItems: 'stretch',
   },
   uploadButton: {
     backgroundColor: '#FF4500',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingVertical: 10,
     borderRadius: 20,
   },
   uploadButtonSecondary: {
@@ -964,61 +1038,117 @@ const styles = StyleSheet.create({
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    justifyContent: 'flex-end',
   },
   modalContent: {
-    backgroundColor: 'white',
-    borderRadius: 16,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
     padding: 24,
-    alignItems: 'center',
-    width: '100%',
-    maxWidth: 320,
+    paddingBottom: 40,
   },
-  modalIcon: {
-    backgroundColor: 'rgba(30, 107, 200, 0.1)',
-    borderRadius: 32,
-    padding: 16,
-    marginBottom: 16,
+  modalHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  modalHeaderIcon: {
+    backgroundColor: '#6D28D9',
+    padding: 12,
+    borderRadius: 999,
+    marginRight: 12,
   },
   modalTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#1F2937',
-    marginBottom: 8,
   },
-  modalText: {
+  modalDescription: {
     fontSize: 16,
-    color: '#6B7280',
-    textAlign: 'center',
+    color: '#4B5563',
+    marginBottom: 20,
     lineHeight: 24,
+  },
+  imageContainer: {
+    marginBottom: 20,
+    position: 'relative',
+  },
+  modalImage: {
+    width: '100%',
+    height: 180,
+    borderRadius: 16,
+  },
+  exampleTag: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+    backgroundColor: '#FBBF24',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+  },
+  exampleTagText: {
+    color: '#1F2937',
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  costContainer: {
+    backgroundColor: '#FEF3C7',
+    borderRadius: 16,
+    padding: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 24,
+  },
+  costText: {
+    flex: 1,
+    marginLeft: 12,
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#92400E',
+  },
+  costBox: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  costBoxText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#1F2937',
+    marginRight: 4,
   },
   modalButtons: {
     flexDirection: 'row',
-    width: '100%',
-    gap: 8,
+    gap: 12,
   },
-  modalButton: {
-    flex: 1,
-    backgroundColor: '#1E6BC8',
-    paddingVertical: 12,
-    borderRadius: 12,
+  primaryButton: {
+    paddingVertical: 16,
+    borderRadius: 16,
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  modalButtonSecondary: {
+  primaryButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  secondaryButton: {
+    flex: 1,
     backgroundColor: 'white',
     borderWidth: 1,
     borderColor: '#E5E7EB',
+    paddingVertical: 16,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  modalButtonText: {
+  secondaryButtonText: {
     fontSize: 16,
-    fontWeight: '600',
-    color: 'white',
-  },
-  modalButtonTextSecondary: {
+    fontWeight: 'bold',
     color: '#374151',
   },
   contentContainer: {

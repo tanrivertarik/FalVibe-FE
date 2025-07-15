@@ -1,14 +1,22 @@
----
-alwaysApply: true
----
-# Theming Guide for FalVibeExpoReact
+# Theming and Styling Guide
 
-The app supports light and dark themes using system color scheme.
+This project uses a combination of NativeWind (Tailwind CSS for React Native) and a custom theming implementation for styling.
 
-- Use [components/ThemedView.tsx](mdc:components/ThemedView.tsx) for themed views.
-- Use [components/ThemedText.tsx](mdc:components/ThemedText.tsx) for themed text.
-- Fetch themed colors with [hooks/useThemeColor.ts](mdc:hooks/useThemeColor.ts).
-- Detect color scheme with [hooks/useColorScheme.ts](mdc:hooks/useColorScheme.ts).
-- Color definitions: [constants/Colors.ts](mdc:constants/Colors.ts).
+## NativeWind
 
-Always apply theming to maintain consistent UI across modes.
+-   **Utility-First CSS**: NativeWind allows us to use Tailwind CSS classes directly in `className` props on React Native components.
+-   **Configuration**: The Tailwind configuration is defined in `[tailwind.config.js](mdc:tailwind.config.js)`. You can customize the theme, add new utilities, or configure variants here.
+-   **Global Styles**: Base styles and CSS variables are defined in `[global.css](mdc:global.css)`. These styles are applied globally to the application.
+
+## Color Scheme and Theming
+
+The application supports both light and dark modes.
+
+-   **Color Palette**: The colors for both light and dark themes are defined in `[constants/Colors.ts](mdc:constants/Colors.ts)`.
+-   **Detecting Color Scheme**: The `[useColorScheme.ts](mdc:hooks/useColorScheme.ts)` hook is used to get the current system color scheme ('light' or 'dark').
+-   **Using Theme Colors**: To use a color from the current theme, use the `[useThemeColor.ts](mdc:hooks/useThemeColor.ts)` hook. This hook takes a color name (a key from the `Colors.ts` object) and returns the appropriate color value for the active theme.
+-   **Themed Components**:
+    -   `[ThemedText.tsx](mdc:components/ThemedText.tsx)`
+    -   `[ThemedView.tsx](mdc:components/ThemedView.tsx)`
+    
+    These components are pre-styled with theme-aware colors for background and text. It's recommended to use them as base components to ensure consistent theming.

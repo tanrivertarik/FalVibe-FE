@@ -1,20 +1,25 @@
----
-title: Project Structure
----
+# Project Structure Guide
 
-# FalVibeExpoReact Project Structure
+This project uses Expo Router v3 for file-based routing. The directory structure follows conventions common in Expo and React Native projects.
 
-This is an Expo React Native application using Expo Router for navigation and Tailwind CSS via NativeWind for styling.
+## Key Directories
 
-- Root layout and entry point: [app/_layout.tsx](mdc:app/_layout.tsx)
-- Main app index: [app/index.tsx](mdc:app/index.tsx)
-- Tabs navigation: [app/(tabs)/_layout.tsx](mdc:app/(tabs)/_layout.tsx)
-- Tab screens: [app/(tabs)/index.tsx](mdc:app/(tabs)/index.tsx), [app/(tabs)/explore.tsx](mdc:app/(tabs)/explore.tsx), [app/(tabs)/fallarim.tsx](mdc:app/(tabs)/fallarim.tsx), [app/(tabs)/premium.tsx](mdc:app/(tabs)/premium.tsx), [app/(tabs)/profile.tsx](mdc:app/(tabs)/profile.tsx)
-- Fortune features: [app/fortune/[type].tsx](mdc:app/fortune/[type].tsx), [app/fortune/coffee-reading.tsx](mdc:app/fortune/coffee-reading.tsx), [app/fortune/dream-interpretation.tsx](mdc:app/fortune/dream-interpretation.tsx)
-- Components directory: [components/](mdc:components/)
-- Constants (e.g., colors): [constants/Colors.ts](mdc:constants/Colors.ts)
-- Hooks (e.g., theming): [hooks/](mdc:hooks/)
-- Assets: [assets/](mdc:assets/)
-- Configuration files: [app.json](mdc:app.json), [package.json](mdc:package.json), [tsconfig.json](mdc:tsconfig.json), [tailwind.config.js](mdc:tailwind.config.js), [eslint.config.js](mdc:eslint.config.js)
+-   **`app/`**: This is the most important directory for routing.
+    -   Files and directories inside `app/` define the routes of the application.
+    -   The main layout is defined in `[app/_layout.tsx](mdc:app/_layout.tsx)`.
+    -   Tab navigation is set up in `[app/(tabs)/_layout.tsx](mdc:app/(tabs)/_layout.tsx)`, with each file inside `app/(tabs)/` representing a tab.
+    -   Dynamic routes can be created using brackets, like `[app/fortune/[type].tsx](mdc:app/fortune/[type].tsx)`.
 
-This rule helps in navigating the codebase by highlighting main directories and files.
+-   **`components/`**: Contains reusable React components used throughout the application.
+    -   Themed components like `[ThemedText.tsx](mdc:components/ThemedText.tsx)` and `[ThemedView.tsx](mdc:components/ThemedView.tsx)` are good examples of base components to use.
+
+-   **`assets/`**: Holds static assets.
+    -   `assets/images/`: For images used in the app.
+    -   `assets/fonts/`: For custom fonts.
+
+-   **`constants/`**: For storing application-wide constants.
+    -   `[Colors.ts](mdc:constants/Colors.ts)` defines the color palette for light and dark modes.
+
+-   **`hooks/`**: Contains custom React hooks.
+    -   `[useColorScheme.ts](mdc:hooks/useColorScheme.ts)` is used to get the current color scheme (light/dark).
+    -   `[useThemeColor.ts](mdc:hooks/useThemeColor.ts)` is a hook to get a color from the theme based on the current color scheme.

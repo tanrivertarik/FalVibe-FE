@@ -1,15 +1,3 @@
 ---
-title: Coding Standards for FalVibeExpoReact
+alwaysApply: false
 ---
-
-# Coding Standards for FalVibeExpoReact
-
-Follow the ESLint rules defined in [eslint.config.js](mdc:eslint.config.js).
-
-- Use consistent indentation (2 spaces).
-- Always use semicolons.
-- Prefer const over let where possible.
-- Use arrow functions for callbacks.
-- Ensure all components and hooks are properly typed using TypeScript.
-
-Refer to the ESLint config for detailed rules and run ESLint to check compliance.
